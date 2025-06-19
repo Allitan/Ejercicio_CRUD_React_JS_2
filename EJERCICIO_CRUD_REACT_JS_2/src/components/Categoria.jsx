@@ -1,8 +1,17 @@
 import Campo from "./Campo"
-//import useProveedor from "../hooks/useProveedor"
 import { useEffect } from "react"
+import useCategoria from "../hooks/useCategoria"
 
 const Categorias = () => {
+    const {
+        categorias,
+        setCategorias,
+        getCategorias,
+    } = useCategoria()
+    
+    useEffect(() => {
+        getCategorias();  
+    }, [])
 
     return(
         <div className="container-fluid">
@@ -21,12 +30,21 @@ const Categorias = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
-                                <th>Sglu</th>
+                                <th>Slug</th>
                                 <th>Imagen</th>
                             </tr>
                         </thead>
                         <tbody className="table-group-divider">
-                           
+                           {
+                            categorias.map((categorias, i) => (
+                                <tr key={categorias.id}>
+                                    <td>{i + 1}</td>
+                                    <td>{categorias.name}</td>
+                                    <td>{categorias.slug}</td>
+                                    <td><img src={categorias.image} style={{width: '100px', height: '100px'}}/> </td>
+                                </tr>
+                            ))
+                           }
                         </tbody>
                     </table>
                 </div>
